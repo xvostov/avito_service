@@ -1,0 +1,2 @@
+class UnsuitableProductError(Exception):
+    pass
