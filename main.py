@@ -28,7 +28,7 @@ def main():
                     db_handler.add_to_viewed_links(offer_url)
                     time.sleep(3)
             else:
-                time.sleep(1)
+                time.sleep(5)
 
 if __name__ == '__main__':
     main()
