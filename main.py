@@ -11,6 +11,7 @@ def main():
     avito_service = Avito()
     while True:
         categories = db_handler.get_categories()
+        time.sleep(1)
         for url in categories:
             offers_urls = avito_service.get_urls(url[0])
             black_list = db_handler.get_blacklist()
