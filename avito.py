@@ -6,7 +6,7 @@ import requests, time, csv, random, re
 from offer import AvitoOffer
 from loguru import logger
 from exceptions import UnsuitableProductError
-from loader import db_handler
+# from loader import db_handler
 
 host = 'https://www.avito.ru'
 
@@ -130,7 +130,7 @@ class Avito:
 
         for word in stop_words:
 
-            if word.lower() in offer.title.lower() or word.lower() in offer.description.lower():
+            if word in offer.title or word in offer.description:
                 logger.debug(f'Stop word was found: {word}')
                 raise UnsuitableProductError
 
