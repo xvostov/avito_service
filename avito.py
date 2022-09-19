@@ -6,7 +6,7 @@ import requests, time, csv, random, re
 from offer import AvitoOffer
 from loguru import logger
 from exceptions import UnsuitableProductError
-# from loader import db_handler
+from loader import db_handler
 
 host = 'https://www.avito.ru'
 
