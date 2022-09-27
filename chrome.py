@@ -41,7 +41,7 @@ class Chrome:
             self.driver.quit()
             del self.driver
 
-            self.driver = webdriver.Chrome(options=self.option, executable_path="./chromedriver")
+            self.driver = webdriver.Chrome(ChromeDriverManager().install(), options=self.option)
             self.driver.get(url)
             source = self.driver.page_source
         time.sleep(3)
