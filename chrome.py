@@ -5,12 +5,12 @@ from loguru import logger
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-
-
+from loader import pglt
 
 import os, json
 
 is_headless = True
+
 
 class Chrome:
     def __init__(self, user, directory='mobile'):
@@ -31,6 +31,7 @@ class Chrome:
         self.driver = webdriver.Chrome(ChromeDriverManager().install(), options=self.option)
         self.driver.set_page_load_timeout = 10
 
+    @pglt.time()
     def get_html(self, url):
         start_time = time.time()
         try:
