@@ -19,4 +19,4 @@ db_name = os.getenv('db_name')
 categories_table = os.getenv('categories_table').strip()
 
 # Prometheus
-prom_exp_port = os.getenv('prom_exp_por')
+prom_exp_port = os.getenv('prom_exp_port')
