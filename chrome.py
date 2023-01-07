@@ -45,8 +45,11 @@ class Chrome:
             self.driver = webdriver.Chrome(ChromeDriverManager().install(), options=self.option)
             self.driver.get(url)
             source = self.driver.page_source
+
         time.sleep(3)
         logger.debug(f'The page loaded in {time.time() - start_time}')
+
+        self.driver.save_screenshot('last_screen.png')
         return source
 
     def quit(self):
