@@ -71,6 +71,8 @@ class Avito:
 
         products_urls = list(set(products_urls))
 
+        logger.debug(f'All urls was found: {len(products_urls)}')
+
         viewed_links = db_handler.get_viewed_links()
         for url in viewed_links:
             try:
