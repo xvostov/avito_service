@@ -100,7 +100,7 @@ class Avito:
 
         sub_category: str = soup.find_all('div', {'data-marker': 'item-navigation'})[0].find_all('span', {'itemprop': 'name'})[-1].text
 
-        if sub_category.lower() in ALLOWED_CATEGORIES:
+        if sub_category.lower() in ALLOWED_CATEGORIES.lower():
             logger.debug(f'Category {sub_category} not in allowed list')
             raise UnsuitableProductError
 
