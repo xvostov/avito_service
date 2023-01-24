@@ -7,6 +7,7 @@ from offer import AvitoOffer
 from loguru import logger
 from exceptions import UnsuitableProductError
 from loader import db_handler
+from settings import ALLOWED_CATEGORIES
 
 host = 'https://www.avito.ru'
 
@@ -97,6 +98,12 @@ class Avito:
         offer = AvitoOffer(url)
         soup = BeautifulSoup(content, 'lxml')
 
+        sub_category: str = soup.find_all('div', {'data-marker': 'item-navigation'})[0].find_all('span', {'itemprop': 'name'})[-1].text
+
+        if sub_category.lower() in ALLOWED_CATEGORIES:
+            logger.debug(f'Category {sub_category} not in allowed list')
+            raise UnsuitableProductError
+
         try:
             offer.seller_url = soup.find_all('div', {'data-marker': 'seller-info/name'})[0].find('a').get('href')
 
@@ -160,3 +167,9 @@ class Avito:
 
     def quit(self):
         self.chrome.quit()
+
+
+if __name__ == '__main__':
+    avito = Avito()
+
+    avito.get_info('https://www.avito.ru/moskva/chasy_i_ukrasheniya/brosh_den_i_noch_2702239136?slocation=107620')
