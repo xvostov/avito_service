@@ -9,7 +9,7 @@ user_agent = os.getenv('user_agent')
 bot_api_token = os.getenv('bot_api_token')
 telegram_api_address = os.getenv('telegram_api_address')
 # interaval = os.getenv('interval')
-ALLOWED_CATEGORIES = os.getenv('ALLOWED_CATEGORIES').split(',')
+ALLOWED_CATEGORIES = [category.lower() for category in os.getenv('ALLOWED_CATEGORIES').split(',')]
 
 # Database
 db_user = os.getenv('db_user')
