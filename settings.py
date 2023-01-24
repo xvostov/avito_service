@@ -17,7 +17,7 @@ db_password = os.getenv('db_password')
 db_host = os.getenv('db_host')
 db_port = int(os.getenv('db_port'))
 db_name = os.getenv('db_name')
-categories_table = os.getenv('categories_table').strip(w)
+categories_table = os.getenv('categories_table').strip()
 
 # Prometheus
 prom_exp_port = os.getenv('prom_exp_port')
