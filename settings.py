@@ -9,6 +9,8 @@ user_agent = os.getenv('user_agent')
 bot_api_token = os.getenv('bot_api_token')
 telegram_api_address = os.getenv('telegram_api_address')
 # interaval = os.getenv('interval')
+
+MIN_PRICE = os.getenv('min_price')
 ALLOWED_CATEGORIES = [category.lower() for category in os.getenv('ALLOWED_CATEGORIES').split(',')]
 
 # Database

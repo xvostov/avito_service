@@ -7,7 +7,7 @@ from offer import AvitoOffer
 from loguru import logger
 from exceptions import UnsuitableProductError
 from loader import db_handler
-from settings import ALLOWED_CATEGORIES
+from settings import ALLOWED_CATEGORIES, MIN_PRICE
 
 host = 'https://www.avito.ru'
 
@@ -146,9 +146,15 @@ class Avito:
         try:
             offer.price = soup.find_all('span', class_='js-item-price')[0].text
             # print('price:', offer.price)
+            
         except IndexError:
             # print('price:', offer.price)
             pass
+        
+        else:
+            if int(offer.price.replace(' ', '')) < MIN_PRICE:
+                raise UnsuitableProductError
+        
 
         # offer.id = soup.find_all('span', {'data-marker': 'item-view/item-id'})[0].text.replace('№ ', '')
         # print('id', offer.id)
