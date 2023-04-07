@@ -153,6 +153,7 @@ class Avito:
         
         else:
             if int(offer.price.replace(' ', '')) < MIN_PRICE:
+                logger.debug(f'The offer is cheaper than the minimum cost: {offer.price} < {MIN_PRICE}')
                 raise UnsuitableProductError
         
 
