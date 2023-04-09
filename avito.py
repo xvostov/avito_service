@@ -7,7 +7,7 @@ from offer import AvitoOffer
 from loguru import logger
 from exceptions import UnsuitableProductError
 from loader import db_handler
-from settings import ALLOWED_CATEGORIES, MIN_PRICE
+from settings import ALLOWED_CATEGORIES
 
 host = 'https://www.avito.ru'
 
