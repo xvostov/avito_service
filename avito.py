@@ -149,12 +149,16 @@ class Avito:
             
         except IndexError:
             # print('price:', offer.price)
-            pass
-        
-        else:
-            if int(offer.price.replace(' ', '')) < MIN_PRICE:
-                logger.debug(f'The offer is cheaper than the minimum cost: {offer.price} < {MIN_PRICE}')
-                raise UnsuitableProductError
+            try:
+                offer.price = soup.find_all('span', {'itemprop':'price'})[0].text
+
+            except IndexError:
+                pass
+
+            # if int(offer.price.replace(' ', '')) < MIN_PRICE:
+            #     logger.debug(f'The offer is cheaper than the minimum cost: {offer.price} < {MIN_PRICE}')
+            #     raise UnsuitableProductError
+
         
 
         # offer.id = soup.find_all('span', {'data-marker': 'item-view/item-id'})[0].text.replace('№ ', '')
@@ -174,9 +178,3 @@ class Avito:
 
     def quit(self):
         self.chrome.quit()
-
-
-if __name__ == '__main__':
-    avito = Avito()
-
-    avito.get_info('https://www.avito.ru/moskva/chasy_i_ukrasheniya/brosh_den_i_noch_2702239136?slocation=107620')
