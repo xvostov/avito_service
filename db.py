@@ -49,6 +49,13 @@ class DataBaseHandler:
         seller_id	VARCHAR(200) NOT NULL,
         PRIMARY KEY(seller_id))""")
 
+        logger.debug('Checking the om "min_prices" table')
+        mysql_cursor.execute("""
+        CREATE TABLE IF NOT EXISTS min_prices (
+        url	VARCHAR(200) NOT NULL UNIQUE,
+        min_price INT,
+        PRIMARY KEY(url))""")
+
         logger.debug('Initialization of settings')
         try:
             mysql_cursor.execute("INSERT INTO settings (name, value) VALUES ('delay', '1')")
@@ -143,6 +150,13 @@ class DataBaseHandler:
 
         return [d[0] for d in resp]
 
+    def get_min_price_by_url(self, url):
+        mysql_connection, mysql_cursor = self._get_connection_and_cursor()
+        logger.debug(f'Getting min price by url - {url}')
+        mysql_cursor.execute("SELECT min_price FROM min_prices WHERE url = ?", (url,))
+        resp = mysql_cursor.fetchone()
+        logger.debug(f'Min price: {resp} for {url}')
+        return resp
 
 if __name__ == '__main__':
     db = DataBaseHandler()

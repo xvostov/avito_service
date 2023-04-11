@@ -155,9 +155,11 @@ class Avito:
             except IndexError:
                 pass
 
-            # if int(offer.price.replace(' ', '')) < MIN_PRICE:
-            #     logger.debug(f'The offer is cheaper than the minimum cost: {offer.price} < {MIN_PRICE}')
-            #     raise UnsuitableProductError
+        if offer.price:
+            min_price = db_handler.get_min_price_by_url(url)
+            if int(offer.price.replace(' ', '')) < min_price:
+                logger.debug(f'The offer is cheaper than the minimum cost: {offer.price} < {min_price}')
+                raise UnsuitableProductError
 
         
 
