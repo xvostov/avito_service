@@ -153,7 +153,7 @@ class DataBaseHandler:
     def get_min_price_by_url(self, url):
         mysql_connection, mysql_cursor = self._get_connection_and_cursor()
         logger.debug(f'Getting min price by url - {url}')
-        mysql_cursor.execute("SELECT min_price FROM min_prices WHERE url = ?", (url,))
+        mysql_cursor.execute("SELECT min_price FROM min_prices WHERE url = %s", (url,))
         resp = mysql_cursor.fetchone()
         logger.debug(f'Min price: {resp} for {url}')
         return resp
