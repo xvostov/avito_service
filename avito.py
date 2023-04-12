@@ -87,7 +87,7 @@ class Avito:
         return products_urls
 
     @stopwatch
-    def get_info(self, url, stop_words=[], black_list=[], category_url) -> AvitoOffer:
+    def get_info(self, url, stop_words=[], black_list=[], category_url=None) -> AvitoOffer:
 
         logger.debug(f'Parsing offer - {url}')
 
