@@ -20,7 +20,7 @@ def main():
             if offers_urls:
                 for offer_url in offers_urls:
                     try:
-                        offer = avito_service.get_info(offer_url, stop_words, black_list)
+                        offer = avito_service.get_info(offer_url, stop_words, black_list, url[0])
                     except UnsuitableProductError:
                         logger.debug(f'Will be skipped - {offer_url}')
                     else:

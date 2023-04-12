@@ -87,7 +87,7 @@ class Avito:
         return products_urls
 
     @stopwatch
-    def get_info(self, url, stop_words=[], black_list=[]) -> AvitoOffer:
+    def get_info(self, url, stop_words=[], black_list=[], category_url) -> AvitoOffer:
 
         logger.debug(f'Parsing offer - {url}')
 
@@ -156,7 +156,7 @@ class Avito:
                 pass
 
         if offer.price:
-            min_price = db_handler.get_min_price_by_url(url)
+            min_price = db_handler.get_min_price_by_url(category_url)
             if min_price:
                 if int(offer.price.replace('\xa0', '')) < min_price:
                     logger.debug(f'The offer is cheaper than the minimum cost: {offer.price} < {min_price}')
