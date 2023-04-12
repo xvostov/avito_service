@@ -157,7 +157,7 @@ class Avito:
 
         if offer.price:
             min_price = db_handler.get_min_price_by_url(url)
-            if int(''.join(offer.price.split())) < min_price:
+            if int(offer.price.replace('\xa0', '')) < min_price:
                 logger.debug(f'The offer is cheaper than the minimum cost: {offer.price} < {min_price}')
                 raise UnsuitableProductError
 
