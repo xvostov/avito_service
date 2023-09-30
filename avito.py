@@ -120,7 +120,7 @@ class Avito:
 
         # print('seller url:', offer.seller_url)
         try:
-            offer.title = soup.find_all('span', class_='title-info-title-text')[0].text
+            offer.title = soup.find_all('h1')[0].text
         except IndexError:
             raise UnsuitableProductError
         # print('title:', offer.title)
