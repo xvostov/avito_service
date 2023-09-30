@@ -102,7 +102,7 @@ class Avito:
 
         if sub_category.lower() not in ALLOWED_CATEGORIES:
             logger.debug(f'Category {sub_category} not in allowed list')
-            raise UnsuitableProductError
+            raise UnsuitableProductError(f'Category {sub_category} not in allowed list')
 
         try:
             offer.seller_url = soup.find_all('div', {'data-marker': 'seller-info/name'})[0].find('a').get('href')
@@ -116,13 +116,13 @@ class Avito:
                 if user.strip() in offer.seller_url:
                     logger.debug(f'User in blacklist: {user}')
 
-                    raise UnsuitableProductError
+                    raise UnsuitableProductError(f'User in blacklist: {user}')
 
         # print('seller url:', offer.seller_url)
         try:
             offer.title = soup.find_all('h1')[0].text
         except IndexError:
-            raise UnsuitableProductError
+            raise UnsuitableProductError('title not found')
         # print('title:', offer.title)
 
         try:
@@ -134,14 +134,14 @@ class Avito:
             # print('description:', offer.description)
         except IndexError:
             # print('Описание не найдено')
-            raise UnsuitableProductError
+            raise UnsuitableProductError('description not found')
             # print('description:', offer.description)
 
         for word in stop_words:
 
             if word in offer.title or word in offer.description:
                 logger.debug(f'Stop word was found: {word}')
-                raise UnsuitableProductError
+                raise UnsuitableProductError(f'Stop word was found: {word}')
 
         try:
             offer.price = soup.find_all('span', class_='js-item-price')[0].text
@@ -160,7 +160,7 @@ class Avito:
             if min_price:
                 if int(offer.price.replace('\xa0', '')) < min_price[0]:
                     logger.debug(f'The offer is cheaper than the minimum cost: {offer.price} < {min_price}')
-                    raise UnsuitableProductError
+                    raise UnsuitableProductError(f'The offer is cheaper than the minimum cost: {offer.price} < {min_price}')
 
         
 
@@ -174,7 +174,7 @@ class Avito:
                 offer.photo = soup.find_all('div', {'class': re.compile(r'^gallery-img-frame')})[0].get('data-url')
 
             except IndexError:
-                raise UnsuitableProductError
+                raise UnsuitableProductError('photo not found')
 
         logger.debug(f'The offer was parsed - {url}')
         return offer

@@ -21,8 +21,8 @@ def main():
                 for offer_url in offers_urls:
                     try:
                         offer = avito_service.get_info(offer_url, stop_words, black_list, url[0])
-                    except UnsuitableProductError:
-                        logger.debug(f'Will be skipped - {offer_url}')
+                    except UnsuitableProductError as err:
+                        logger.warning(f'Will be skipped - {offer_url}\n{err}')
                     else:
                         telegram.send_offer(offer)
 
