@@ -170,11 +170,23 @@ class Avito:
         try:
             offer.photo = soup.find_all('div', {'class': re.compile(r'^image-frame-wrapper')})[0].get('data-url')
         except Exception:
+            pass
+
+        if not offer.photo:
             try:
                 offer.photo = soup.find_all('div', {'class': re.compile(r'^gallery-img-frame')})[0].get('data-url')
+            except Exception:
+                pass
 
-            except IndexError:
-                raise UnsuitableProductError('photo not found')
+        if not  offer.photo:
+            try:
+                offer.photo = soup.find_all('img', {'alt': offer.title})[0].get('src')
+            except Exception:
+                pass
+
+
+        if not offer.photo:
+            raise UnsuitableProductError('photo not found')
 
         logger.debug(f'The offer was parsed - {url}')
         return offer
