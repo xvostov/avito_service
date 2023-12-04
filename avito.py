@@ -31,7 +31,7 @@ class Avito:
     @stopwatch
     def get_urls(self, url):
         logger.debug(f'Collecting urls from the category - {url}')
-        page = 1
+        # page = 1
 
         products_urls = []
 
@@ -71,6 +71,8 @@ class Avito:
         # time.sleep(random.uniform(2.0, 5.0))
 
         products_urls = list(set(products_urls))
+        products_urls = [url.split('?')[0] for url in products_urls]
+
 
         logger.debug(f'All urls was found: {len(products_urls)}')
 

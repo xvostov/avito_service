@@ -18,7 +18,6 @@ def main():
             stop_words = db_handler.get_stopwords()
 
             if offers_urls:
-                offers_urls = [url.split('?')[0] for url in offers_urls]
                 for offer_url in offers_urls:
                     try:
                         offer = avito_service.get_info(offer_url, stop_words, black_list, url[0])
