@@ -77,16 +77,18 @@ class Avito:
         logger.debug(f'All urls was found: {len(products_urls)}')
 
         viewed_links = db_handler.get_viewed_links()
-        for url in viewed_links:
-            try:
-                products_urls.remove(url)
-            except ValueError:
-                pass
-            else:
-                logger.debug(f'Will be skipped - {url}')
 
-        logger.debug(f'Urls from the category are collected. New urls found: {len(products_urls)}')
-        return products_urls
+        res_urls = []
+
+        for url in products_urls:
+            if url.strip() in viewed_links:
+                logger.debug(f'Will be skipped - {url}')
+                continue
+            res_urls.append(url)
+
+
+        logger.debug(f'Urls from the category are collected. New urls found: {len(res_urls)}')
+        return res_urls
 
     @stopwatch
     def get_info(self, url, stop_words=[], black_list=[], category_url=None) -> AvitoOffer:
